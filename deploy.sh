@@ -131,23 +131,25 @@ ENVIRONMENT=$(get_env "$ENV")
 GITHUB_API_URL="https://api.github.com"
 DEPLOYMENTS_URL="$GITHUB_API_URL/repos/$OWNER/$REPO/deployments"
 
-echo <<EOF
-  Creating deployment to $DEPLOYMENTS_URL
-  with:
-    ref = $REF
-    task = deploy
-    environment = $ENVIRONMENT
-EOF
+echo "Create Deployment to $DEPLOYMENTS_URL"
+echo
+echo "ref         = $REF"
+echo "task        = deploy"
+echo "environment = $ENVIRONMENT"
+echo
 
 curl --silent --show-error --fail \
   -X POST "$DEPLOYMENTS_URL" \
   -H "Authorization: token $GITHUB_TOKEN" \
   -H "Content-Type: application/json" \
+  --retry 3 \
   --data @- <<EOF
 {
   "ref": "${REF}",
   "task": "deploy",
   "environment": "${ENVIRONMENT}",
-  "description": "Deployment for ${ENVIRONMENT} environemnt"
+  "description": "Deployment for ${ENVIRONMENT} environemnt",
+  "auto_merge": false,
+  "required_contexts": []
 }
 EOF
