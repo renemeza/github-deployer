@@ -14,11 +14,11 @@ usage() {
   echo "  -o, --owner     The repository owner"
   echo "  -r, --repo      The target repository"
   echo "  -e, --env       Name for the target deployment environment. Defaults to 'dev' environment"
-  echo "  -f, --ref       The ref to deploy. This can be a branch, tag or SHA. Defaults to 'develop' branch"
+  echo "  -f, --ref       The ref to deploy. This can be a branch, tag or SHA. Defaults to 'master' branch"
   echo "  -t, --token     The Github authentication token, if not provided the token will be taken from 'GITHUB_TOKEN' env variable"
   echo
   echo "Example:"
-  echo "  deploy --owner owner --repo repo --env production --ref master"
+  echo "  github-deployer --owner owner --repo repo --env production --ref master"
 }
 
 parse_options() {
