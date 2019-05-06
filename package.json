@@ -1,0 +1,17 @@
+{
+  "name": "github-deployer",
+  "version": "1.0.0",
+  "description": "CLI utility tool to create a Github deployment",
+  "keywords": [
+    "Github Api",
+    "CLI",
+    "deployment"
+  ],
+  "author": "Rene Meza <rene.meza@massive.co>",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {},
+  "bin": {
+    "github-deployer": "./deploy.sh"
+  }
+}
