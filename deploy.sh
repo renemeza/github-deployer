@@ -56,7 +56,7 @@ parse_options() {
       shift
       ;;
       ?*)
-      echo "Error: Unknown option."
+      echo "Error: Unknown option. $1"
       usage
       exit 0
       ;;
@@ -129,9 +129,18 @@ fi
 ENVIRONMENT=$(get_env "$ENV")
 
 GITHUB_API_URL="https://api.github.com"
+DEPLOYMENTS_URL="$GITHUB_API_URL/repos/$OWNER/$REPO/deployments"
+
+echo <<EOF
+  Creating deployment to $DEPLOYMENTS_URL
+  with:
+    ref = $REF
+    task = deploy
+    environment = $ENVIRONMENT
+EOF
 
 curl --silent --show-error --fail \
-  -X POST "$GITHUB_API_URL/repos/$OWNER/$REPO/deployments" \
+  -X POST "$DEPLOYMENTS_URL" \
   -H "Authorization: token $GITHUB_TOKEN" \
   -H "Content-Type: application/json" \
   --data @- <<EOF
