@@ -1,7 +1,10 @@
 #!/bin/sh
 
+BASEDIR=$(dirname "$0")
+
 ENV="dev"
 REF="master"
+PAYLOAD='{}'
 
 usage() {
   echo
@@ -16,6 +19,7 @@ usage() {
   echo "  -e, --env       Name for the target deployment environment. Defaults to 'dev' environment"
   echo "  -f, --ref       The ref to deploy. This can be a branch, tag or SHA. Defaults to 'master' branch"
   echo "  -t, --token     The Github authentication token, if not provided the token will be taken from 'GITHUB_TOKEN' env variable"
+  echo "  -p, --payload   The payload object"
   echo
   echo "Example:"
   echo "  github-deployer --owner owner --repo repo --env production --ref master"
@@ -52,6 +56,10 @@ parse_options() {
       ;;
       -t|--token)
       TOKEN="$2"
+      shift
+      shift
+      -p|--payload)
+      PAYLOAD="$2"
       shift
       shift
       ;;
@@ -150,6 +158,7 @@ curl --silent --show-error --fail \
   "environment": "${ENVIRONMENT}",
   "description": "Deployment for ${ENVIRONMENT} environemnt",
   "auto_merge": false,
-  "required_contexts": []
+  "required_contexts": [],
+  "payload": ${PAYLOAD}
 }
 EOF
