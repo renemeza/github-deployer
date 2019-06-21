@@ -36,32 +36,27 @@ parse_options() {
       ;;
       -o|--owner)
       OWNER="$2"
-      shift
-      shift
+      shift 2
       ;;
       -r|--repo)
       REPO="$2"
-      shift
-      shift
+      shift 2
       ;;
       -e|--env)
       ENV="$2"
-      shift
-      shift
+      shift 2
       ;;
       -f|--ref)
       REF="$2"
-      shift
-      shift
+      shift 2
       ;;
       -t|--token)
       TOKEN="$2"
-      shift
-      shift
+      shift 2
+      ;;
       -p|--payload)
       PAYLOAD="$2"
-      shift
-      shift
+      shift 2
       ;;
       ?*)
       echo "Error: Unknown option. $1"
