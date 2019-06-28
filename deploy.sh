@@ -5,6 +5,7 @@ BASEDIR=$(dirname "$0")
 ENV="dev"
 REF="master"
 PAYLOAD='{}'
+TASK="deploy"
 
 usage() {
   echo
@@ -20,6 +21,7 @@ usage() {
   echo "  -f, --ref       The ref to deploy. This can be a branch, tag or SHA. Defaults to 'master' branch"
   echo "  -t, --token     The Github authentication token, if not provided the token will be taken from 'GITHUB_TOKEN' env variable"
   echo "  -p, --payload   The payload object"
+  echo "  --task          The task to execute. Defaults to 'deploy'"
   echo
   echo "Example:"
   echo "  github-deployer --owner owner --repo repo --env production --ref master"
@@ -56,6 +58,10 @@ parse_options() {
       ;;
       -p|--payload)
       PAYLOAD="$2"
+      shift 2
+      ;;
+      --task)
+      TASK="$2"
       shift 2
       ;;
       ?*)
@@ -149,9 +155,9 @@ curl --silent --show-error --fail \
   --data @- <<EOF
 {
   "ref": "${REF}",
-  "task": "deploy",
+  "task": "${TASK}",
   "environment": "${ENVIRONMENT}",
-  "description": "Deployment for ${ENVIRONMENT} environemnt",
+  "description": "Deployment for ${ENVIRONMENT} environemnt and task ${TASK}",
   "auto_merge": false,
   "required_contexts": [],
   "payload": ${PAYLOAD}

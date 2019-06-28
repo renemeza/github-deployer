@@ -22,13 +22,19 @@ github-deployer --owner octocat --repo example --ref develop --env stag
 > The target repository
 
 `-e`, `--env`
-> Name for the target deployment environment. Defaults to 'dev' environment
+> Name for the target deployment environment. Defaults to `dev` environment
 
 `-f`, `--ref`
-> The ref to deploy. This can be a branch, tag or SHA. Defaults to 'master' branch
+> The ref to deploy. This can be a branch, tag or SHA. Defaults to `master` branch
 
 `-t`, `--token`
-> The Github authentication token, if not provided the token will be taken from 'GITHUB_TOKEN' env variable
+> The Github authentication token, if not provided the token will be taken from `GITHUB_TOKEN` env variable
+
+`-p`, `--payload`
+> The payload json object to send to the deployment webhook
+
+`--task`
+> The task to execute. Defaults to `deploy`
 
 ## Installation
 
